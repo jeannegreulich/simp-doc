@@ -4,10 +4,9 @@ Environment Preparation
 =======================
 
 A non-root user should be used to build the simp iso.  The preparation
-is didvided into two parts.  The first, System Configuration, must be done
-by a user with root privileges.  The second, User Configuration, must
+is divided into two parts.  The first, System Configuration, must be done
+by a user with sudo privileges.  The second, User Configuration, must
 be done any user who is going to build the iso on the system.
-
 
 System Configuration
 --------------------
@@ -26,8 +25,8 @@ and use **haveged**.
 
 .. code-block:: bash
 
-  $ yum install haveged
-  $ systemctl start haveged
+  $ sudo yum install haveged
+  $ sudo systemctl start haveged
 
 RVM Manager
 ^^^^^^^^^^^
@@ -38,18 +37,28 @@ setting up their rvm manager:
 
 .. code-block:: bash
 
-  $ yum install -y patch autoconf automake bison bzip2 gcc-c++ libffi-devel libtool patch \
+  $ sudo yum install -y patch autoconf automake bison bzip2 gcc-c++ libffi-devel libtool patch \
     readline-devel sqlite-devel zlib-devel glibc-headers glibc-devel libyaml-devel openssl-devel
 
 
 Other Tools
 ^^^^^^^^^^^
 
-The rpm tools and git need to be installed:
+You will need git installed on your system"
 
 .. code-block:: bash
 
-  $ yum install rpm-build git
+  $ sudo yum install git
+
+
+If you are running the build in docker it will build the environment.  If you are running build:auto
+then the following rpms need to be installed:
+
+.. code-block:: bash
+
+  $ sudo yum install rpm-build rubygems selinux-policy-devel checkpolicy yum-utils policycoreutils-python \
+                rpmdevtools libicu-devel libxml2 libxml2-devel libxslt libxslt-devel  \
+                rpm-sign gcc gcc-c++ ruby-devel
 
 Set Up Docker
 ^^^^^^^^^^^^^
@@ -59,13 +68,13 @@ repository depending on your distribution.
 
 .. code-block:: bash
 
-  $ yum install docker
+  $ sudo yum install docker
 
 Allow your (non-root) user to run docker:
 
 .. code-block:: bash
 
-  $ usermod -aG dockerroot <user>
+  $ sudo usermod -aG dockerroot <user>
 
 .. NOTE::
 
@@ -82,12 +91,20 @@ socket:
     "group": "dockerroot"
   }
 
+By default docker limits systems to 20G.  The ISO build requires more space.
+Edit the /etc/sysconfig/docker-storage file to add the following options (or
+read docker-storage-setup to determine how to configure your storage):
+
+.. code-clock:: bash
+
+DOCKER_STORAGE_OPTIONS=--storage-opt dm.basesize=100G
+
 Start the docker daemon:
 
 .. code-block:: bash
 
-  $ systmectl start docker
-  $ systemctl enable docker
+  $ sudo systmectl start docker
+  $ sudo systemctl enable docker
 
 
 
@@ -100,7 +117,7 @@ The following must be done by the user who will be building SIMP.
   Please use a not-root user for installing simp or building the iso.
 
 Set Up Ruby
------------
+^^^^^^^^^^^
 
 We highly recommend using :term:`RVM` to make it easy to develop and test
 against several versions of :term:`Ruby` at once without damaging your
