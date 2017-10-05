@@ -11,7 +11,7 @@ be done any user who is going to build the iso on the system.
 System Configuration
 --------------------
 
-The following should be performed by a user with root privileges.
+The following need to be performed by a user with root privileges.
 
 Ensure Sufficient Entropy
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -27,6 +27,7 @@ and use **haveged**.
 
   $ sudo yum install haveged
   $ sudo systemctl start haveged
+
 
 RVM Manager
 ^^^^^^^^^^^
@@ -81,8 +82,8 @@ Allow your (non-root) user to run docker:
   You may need to log out and log back in before your user is able to run as
   dockerroot.
 
-Edit ``/etc/docker/daemon.json`` and change the ownership of the docker daemon
-socket:
+As root, edit ``/etc/docker/daemon.json`` and change the ownership of the
+docker daemon socket:
 
 .. code-block:: json
 
@@ -103,7 +104,7 @@ Start the docker daemon:
 
 .. code-block:: bash
 
-  $ sudo systmectl start docker
+  $ sudo systemctl start docker
   $ sudo systemctl enable docker
 
 
