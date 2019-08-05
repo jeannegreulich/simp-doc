@@ -17,8 +17,8 @@ integrate SIMP environments into your site's deployment strategy.
 .. include:: Environments/SIMP_Environments.inc
 .. include:: Environments/Deployment_Scenarios.inc
 .. include:: Environments/Local_Module_Repositories.inc
-.. include:: Environments/Example_NewEnv.inc
 .. include:: Environments/SIMP_CLI_Environment_Management.inc
+.. include:: Environments/Environments_Examples.inc
 ..
   TODO:
 
