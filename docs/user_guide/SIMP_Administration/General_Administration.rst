@@ -16,7 +16,7 @@ SIMP does some of the things that it does.
 
    **DO NOT USE CAPITAL LETTERS IN HOST NAMES**
 
-
+.. include:: General_Administration/Extract_Full_OS_Package_Set.inc
 .. include:: General_Administration/Package_Management.inc
 .. include:: General_Administration/Nightly_Updates.inc
 .. include:: General_Administration/Session_Auditing.inc
